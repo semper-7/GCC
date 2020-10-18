@@ -1,0 +1,151 @@
+
+AVRA   Ver. 1.2.3 owon.asm Sat Feb 22 22:55:06 2020
+
+
+          .list
+         
+          .MACRO	delay
+          	ldi	r24,@0
+          delay:	dec	r24
+          	brne	delay
+          .ENDMACRO
+          .MACRO	ldx
+          	ldi	r26,low(@0)
+          	ldi	r27,high(@0)
+          .ENDMACRO
+          .MACRO	ldy
+          	ldi	r28,low(@0)
+          	ldi	r29,high(@0)
+          .ENDMACRO
+          .MACRO	ldz
+          	ldi	r30,low(@0*2)
+          	ldi	r31,high(@0*2)
+          .ENDMACRO
+         
+          .DSEG
+         
+          .CSEG
+          .org 0
+C:000000 c00f      	rjmp	init
+C:000001 9518      	reti
+C:000002 9518      	reti
+C:000003 9518      	reti
+C:000004 9518      	reti
+C:000005 9518      	reti
+C:000006 9518      	reti
+C:000007 9518      	reti
+C:000008 c005      	rjmp	wdog
+C:000009 9518      	reti
+         
+          ROM:	.db	0x69,0x5a,0x4b,0x3c,0x2d,0x1e,0x0f,0x33
+C:00000A 695A4B3C2D1E0F33
+         
+C:00000e bc11      wdog:	out	WDTCR,r1
+C:00000f 9518           	reti
+         
+C:000010 2411      init:	eor	r1, r1
+C:000011 be1f      	out	SREG,r1
+C:000012 e98f      	ldi	r24,RAMEND
+C:000013 bf8d      	out	SPL,r24
+C:000014 9a47      	sbi	ACSR,ACD
+C:000015 e28f      	ldi	r24,0x2f
+C:000016 bb87      	out	DDRB,r24
+C:000017 e28c      	ldi	r24,0x2c
+C:000018 bb84      	out	DIDR0,r24
+         
+C:000019 d01b      loop:	rcall	WaitRising
+C:00001a cffe      	rjmp	loop
+C:00001b d026      loop1:	rcall	SendPresence
+C:00001c d031      	rcall	ReadByte
+C:00001d 3505      	cpi	r16,0x55
+C:00001e f451      	brne	loop2
+C:00001f d03a      	rcall	ReadROM
+C:000020 f7c1      	brne	loop
+C:000021 d02c      	rcall	ReadByte
+C:000022 360c      	cpi	r16,0x6c
+C:000023 f3a8      	brcs	loop
+C:000024 3700      	cpi	r16,0x70
+C:000025 f798      	brcc	loop
+C:000026 7003      	andi	r16,3
+C:000027 bb08      	out	PORTB,r16
+C:000028 cff0      	rjmp	loop
+C:000029 3c0c      loop2:	cpi	r16,0xCC
+C:00002a f771      	brne	loop
+C:00002b e500      	ldi	r16,(1<<WDTIE)|(1<<WDCE)
+C:00002c bd01      	out	WDTCR,r16
+C:00002d e406      	ldi	r16,(1<<WDTIE)|(1<<WDP2)|(1<<WDP1)
+C:00002e bd01      	out	WDTCR,r16
+C:00002f 95a8      	wdr
+C:000030 9478      	sei
+C:000031 e300      	ldi	r16,(1<<SE)|(1<<SM1)
+C:000032 bf05      	out	MCUCR,r16
+C:000033 9588      	sleep
+C:000034 cfe4      	rjmp	loop
+         
+          WaitRising:
+C:000035 2788      	clr	r24
+C:000036 9583      wrs0:	inc	r24
+C:000037 9bb4      	sbis	PINB,4
+C:000038 cffd      	rjmp	wrs0
+C:000039 3887      	cpi	r24,450*12/4/10
+C:00003a f018      	brcs	wrs1
+C:00003b e98f      	ldi	r24,RAMEND
+C:00003c bf8d      	out	SPL,r24
+C:00003d cfdd      	rjmp	loop1
+C:00003e 99b4      wrs1:	sbic	PINB,4
+C:00003f cffe      	rjmp	wrs1
+C:000040 ba18      	out	PORTB,r1
+C:000041 9508      	ret
+         
+          SendPresence:
+C:000042   +  	delay	10*12/3/10
+C:000042 e084      ldi	r24,10*12/3/10
+C:000043 958a      delay:	dec	r24
+C:000044 f7f1      brne	delay
+C:000045 9abc      	sbi	DDRB,4
+C:000046   +  	delay	100*12/3/10
+C:000046 e288      ldi	r24,100*12/3/10
+C:000047 958a      delay:	dec	r24
+C:000048 f7f1      brne	delay
+C:000049 98bc      	cbi	DDRB,4
+C:00004a   +  	delay	50*12/3/10
+C:00004a e184      ldi	r24,50*12/3/10
+C:00004b 958a      delay:	dec	r24
+C:00004c f7f1      brne	delay
+C:00004d 9508      	ret
+         
+          ReadByte:
+C:00004e 2700      	clr	r16
+C:00004f e018      	ldi	r17,8
+C:000050 dfe4      rb00:	rcall	WaitRising
+C:000051   +  	delay	20*12/3/10
+C:000051 e088      ldi	r24,20*12/3/10
+C:000052 958a      delay:	dec	r24
+C:000053 f7f1      brne	delay
+C:000054 9506      	lsr	r16
+C:000055 99b4      	sbic	PINB,4
+C:000056 6800      	ori	r16,0x80
+C:000057 951a      	dec	r17
+C:000058 f7b9      	brne	rb00
+C:000059 9508      	ret
+         
+          ReadROM:
+C:00005a e028      	ldi	r18,8
+C:00005b   +  	ldz	ROM
+C:00005b e1e4      ldi	r30,low(ROM*2)
+C:00005c e0f0      ldi	r31,high(ROM*2)
+C:00005d dff0      rr00:	rcall	ReadByte
+C:00005e 9115      	lpm	r17,Z+
+C:00005f 1701      	cp	r16,r17
+C:000060 f411              brne	rr01
+C:000061 952a      	dec	r18
+C:000062 f7d1      	brne	rr00
+C:000063 9508      rr01:	ret
+
+
+Segment usage:
+   Code      :       100 words (200 bytes)
+   Data      :         0 bytes
+   EEPROM    :         0 bytes
+
+Assembly completed with no errors.

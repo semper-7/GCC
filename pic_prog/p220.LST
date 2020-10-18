@@ -1,0 +1,516 @@
+MPASM  5.51                          P220.ASM   3-15-2020  11:14:39         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001         list      p=12F635
+                      00002         #include <p12f635.inc>
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC12F635 processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2013 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+                      00449         LIST
+                      00003         errorlevel      -302
+2007   30D4           00004         __CONFIG        30d4h
+                      00005 ;2МГц - 13,46мкГ - 470пФ
+                      00006 ;****** Регистры ***************************************************************
+  00000040            00007 wtmp    equ     0x40    ; W temp
+  00000041            00008 stmp    equ     0x41    ; Status temp
+  00000042            00009 nbit    equ     0x42    ; счетчик бит
+  00000043            00010 nbyte   equ     0x43    ; счетчик байт
+  00000044            00011 us2     equ     0x44    ; счетчик us*2
+  00000045            00012 ms1     equ     0x45    ; счетчик ms
+  00000046            00013 txbyte  equ     0x46    ; текущий передаваемый байт
+  00000048            00014 buf     equ     0x48    ; начало буфера приема
+                      00015 
+                      00016 ;*******************************************************************************
+0000                  00017         org     0
+0000   2815           00018         goto    start           ; к началу
+                      00019 ;****** Обработчик прерываний **************************************************
+0004                  00020         org     4
+0004   00C0           00021         movwf   wtmp
+0005   0803           00022         movf    STATUS,w
+0006   00C1           00023         movwf   stmp
+0007   1D8C           00024         btfss   PIR1,C1IF
+0008   2810           00025         goto    i000
+0009   1105           00026         bcf     PORTA,2
+000A   205C           00027         call    RX
+                      00028 ;       call    ONOFF
+000B   0848           00029         movf    buf,w
+000C   00C6           00030         movwf   txbyte
+000D   2082           00031         call    TX
+000E   130B           00032         bcf     INTCON,PEIE
+000F   118C           00033         bcf     PIR1,C1IF
+0010   0841           00034 i000    movf    stmp,w
+0011   0083           00035         movwf   STATUS
+0012   0EC0           00036         swapf   wtmp,f
+0013   0E40           00037         swapf   wtmp,w
+0014   0009           00038         retfie
+                      00039 ;*******************************************************************************
+0015   1499           00040 start   bsf     CMCON0,CM1
+0016   3030           00041         movlw   30h
+0017   0085           00042         movwf   PORTA
+0018   1683           00043         bsf     STATUS,RP0      ; 1 Bank
+0019   160F           00044         bsf     OSCCON,IRCF0    ; 8 MHz
+MPASM  5.51                          P220.ASM   3-15-2020  11:14:39         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+001A   300B           00045         movlw   0bh
+001B   0085           00046         movwf   TRISA
+001C   158C           00047         bsf     PIE1,C1IE
+001D   1283           00048         bcf     STATUS,RP0      ; 0 Bank
+                      00049 
+001E   300A           00050         movlw   .10
+001F   00C3           00051         movwf   nbyte
+0020   2076           00052 l004    call    MS256
+0021   0BC3           00053         decfsz  nbyte,f
+0022   2820           00054         goto    l004
+                      00055 
+0023   01C3           00056         clrf    nbyte
+0024   0843           00057 l002    movf    nbyte,w
+0025   2039           00058         call    szstart
+0026   00C6           00059         movwf   txbyte
+0027   08C6           00060         movf    txbyte,f
+0028   1903           00061         btfsc   STATUS,Z
+0029   282D           00062         goto    l003
+002A   2082           00063         call    TX
+002B   0AC3           00064         incf    nbyte,f
+002C   2824           00065         goto    l002
+                      00066 
+002D   178B           00067 l003    bsf     INTCON,GIE
+                      00068 
+002E   1905           00069 l000    btfsc   PORTA,2
+002F   282E           00070         goto    l000
+0030   1B0B           00071         btfsc   INTCON,PEIE
+0031   2837           00072         goto    l001
+0032   2076           00073         call    MS256
+0033   1505           00074         bsf     PORTA,2
+0034   2071           00075         call    US514
+0035   018C           00076         clrf    PIR1
+0036   170B           00077         bsf     INTCON,PEIE
+0037   1505           00078 l001    bsf     PORTA,2
+0038   282E           00079         goto    l000
+                      00080 
+0039   0782           00081 szstart addwf   PCL,f
+003A   3473           00082         retlw   's'
+003B   3474           00083         retlw   't'
+003C   3461           00084         retlw   'a'
+003D   3472           00085         retlw   'r'
+003E   3474           00086         retlw   't'
+003F   340D           00087         retlw   0dh
+0040   340A           00088         retlw   0ah
+0041   3400           00089         retlw   0
+                      00090 
+0042   3055           00091 ONOFF   movlw   55h
+0043   0249           00092         subwf   buf+1,w
+0044   1D03           00093         btfss   STATUS,Z
+0045   0008           00094         return
+0046   3065           00095         movlw   65h
+0047   02C8           00096         subwf   buf,f
+0048   1C03           00097         btfss   STATUS,C
+MPASM  5.51                          P220.ASM   3-15-2020  11:14:39         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0049   0008           00098         return
+004A   3006           00099         movlw   6
+004B   0248           00100         subwf   buf,w
+004C   1803           00101         btfsc   STATUS,C
+004D   0008           00102         return
+004E   18C8           00103         btfsc   buf,1
+004F   0008           00104         return
+0050   0848           00105         movf    buf,w
+0051   2055           00106         call    TAB
+0052   0085           00107         movwf   PORTA
+0053   130B           00108         bcf     INTCON,PEIE
+0054   0008           00109         return
+                      00110 
+0055   0782           00111 TAB     addwf   PCL,f
+0056   3430           00112         retlw   30h
+0057   3420           00113         retlw   20h
+0058   3430           00114         retlw   30h
+0059   3430           00115         retlw   30h
+005A   3410           00116         retlw   10h
+005B   3400           00117         retlw   00h
+                      00118 
+005C   3048           00119 RX      movlw   buf
+005D   0084           00120         movwf   FSR
+005E   3002           00121         movlw   2
+005F   00C3           00122         movwf   nbyte
+0060   300E           00123         movlw   .8000000/.16/.38400/2*3-4
+0061   2070           00124         call    US              ;
+0062   3008           00125 RX00    movlw   8
+0063   00C2           00126         movwf   nbit            ; счетчик бит=8
+0064   1003           00127 RX01    bcf     STATUS,C        ; сбрасываем флаг С
+0065   0C80           00128         rrf     INDF,f          ; сдвигаем регистр вправо
+0066   1B19           00129         btfsc   CMCON0,COUT     ; если вход=1, то пишем 1, если нет - пропускаем
+0067   1780           00130         bsf     INDF,7          ; ставим бит=1
+0068   300A           00131         movlw   .8000000/.16/.38400-3
+0069   2070           00132         call    US
+006A   0BC2           00133         decfsz  nbit,f          ; уменьшаем счетчик и проверяем - приняли 8 бит или нет
+006B   2864           00134         goto    RX01            ; если нет - принимаем следующий бит
+006C   0A84           00135         incf    FSR,f           ; указатель на сл. байт в буфере
+006D   0BC3           00136         decfsz  nbyte,f         ; уменьшаем счетчик и проверяем - приняли 16 бит или нет
+006E   2862           00137         goto    RX00            ; если нет - принимаем следующие 8
+006F   0008           00138         return
+                      00139 
+0070   00C4           00140 US      movwf   us2
+0071   0000           00141 US514   nop
+0072   0BC4           00142         decfsz  us2,f
+0073   2871           00143         goto    US514
+0074   0008           00144         return
+0075   00C5           00145 MS      movwf   ms1
+0076   2071           00146 MS256   call    US514
+0077   30F1           00147         movlw   (.1000-.514-4)/2
+0078   2070           00148         call    US
+0079   0BC5           00149         decfsz  ms1,1
+007A   2876           00150         goto    MS256
+MPASM  5.51                          P220.ASM   3-15-2020  11:14:39         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+007B   0008           00151         return
+                      00152 
+007C   1403           00153 TXnext  bsf     STATUS,0
+007D   0CC6           00154         rrf     txbyte,1
+007E   1C03           00155         btfss   STATUS,0
+007F   2884           00156         goto    zero
+0080   1685           00157         bsf     PORTA,5
+0081   2885           00158         goto    one
+0082   300A           00159 TX      movlw   .10
+0083   00C2           00160         movwf   nbit
+0084   1285           00161 zero    bcf     PORTA,5
+0085   302F           00162 one     movlw   (.8000000/4/.9600-12)/4
+0086   2070           00163         call    US
+0087   0BC2           00164         decfsz  nbit,1
+0088   287C           00165         goto    TXnext
+0089   0008           00166         return
+                      00167 
+                      00168 
+                      00169         end
+MPASM  5.51                          P220.ASM   3-15-2020  11:14:39         PAGE  5
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+C                                 00000000
+C1IE                              00000003
+C1IF                              00000003
+C1INV                             00000004
+C1OUT                             00000006
+C1SYNC                            00000000
+CINV                              00000004
+CIS                               00000003
+CM0                               00000000
+CM1                               00000001
+CM2                               00000002
+CMCON0                            00000019
+CMCON1                            0000001A
+CMSYNC                            00000000
+COUT                              00000006
+CRCON                             00000110
+CRDAT0                            00000111
+CRDAT1                            00000112
+CRDAT2                            00000113
+CRDAT3                            00000114
+CRIE                              00000005
+CRIF                              00000005
+CRREG0                            00000000
+CRREG1                            00000001
+DC                                00000001
+EEADR                             0000009B
+EECON1                            0000009C
+EECON2                            0000009D
+EEDAT                             0000009A
+EEDATA                            0000009A
+EEIE                              00000007
+EEIF                              00000007
+ENC_DEC                           00000006
+ENC_NOT_DEC                       00000006
+F                                 00000001
+FSR                               00000004
+GIE                               00000007
+GO                                00000007
+GO_NOT_DONE                       00000007
+GP0                               00000000
+GP1                               00000001
+GP2                               00000002
+GP3                               00000003
+GP4                               00000004
+GP5                               00000005
+GPIO                              00000005
+HTS                               00000002
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IOCA                              00000096
+MPASM  5.51                          P220.ASM   3-15-2020  11:14:39         PAGE  6
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+IOCA0                             00000000
+IOCA1                             00000001
+IOCA2                             00000002
+IOCA3                             00000003
+IOCA4                             00000004
+IOCA5                             00000005
+IRCF0                             00000004
+IRCF1                             00000005
+IRCF2                             00000006
+IRP                               00000007
+IRVST                             00000005
+LTS                               00000001
+LVDCON                            00000094
+LVDEN                             00000004
+LVDIE                             00000006
+LVDIF                             00000006
+LVDL0                             00000000
+LVDL1                             00000001
+LVDL2                             00000002
+MS                                00000075
+MS256                             00000076
+NOT_BOD                           00000000
+NOT_BOR                           00000000
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RAPU                          00000007
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_WUR                           00000003
+ONOFF                             00000042
+OPTION_REG                        00000081
+OSCCON                            0000008F
+OSCTUNE                           00000090
+OSFIE                             00000002
+OSFIF                             00000002
+OSTS                              00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PIE1                              0000008C
+PIR1                              0000000C
+PLVDEN                            00000004
+PORTA                             00000005
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+MPASM  5.51                          P220.ASM   3-15-2020  11:14:39         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RA5                               00000005
+RAIE                              00000003
+RAIF                              00000000
+RD                                00000000
+RP0                               00000005
+RP1                               00000006
+RX                                0000005C
+RX00                              00000062
+RX01                              00000064
+SBODEN                            00000004
+SBOREN                            00000004
+SCS                               00000000
+STATUS                            00000003
+SWDTEN                            00000000
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1GINV                            00000007
+T1GSS                             00000001
+T1OSCEN                           00000003
+TAB                               00000055
+TMR0                              00000001
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1GE                            00000006
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISIO                            00000085
+TRISIO0                           00000000
+TRISIO1                           00000001
+TRISIO2                           00000002
+TRISIO3                           00000003
+TRISIO4                           00000004
+TRISIO5                           00000005
+TUN0                              00000000
+TUN1                              00000001
+TUN2                              00000002
+TUN3                              00000003
+TUN4                              00000004
+MPASM  5.51                          P220.ASM   3-15-2020  11:14:39         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TX                                00000082
+TXnext                            0000007C
+ULPWUE                            00000005
+US                                00000070
+US514                             00000071
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+VR3                               00000003
+VRCON                             00000099
+VREN                              00000007
+VRR                               00000005
+W                                 00000000
+WDA                               00000097
+WDA0                              00000000
+WDA1                              00000001
+WDA2                              00000002
+WDA4                              00000004
+WDA5                              00000005
+WDTCON                            00000018
+WDTPS0                            00000001
+WDTPS1                            00000002
+WDTPS2                            00000003
+WDTPS3                            00000004
+WPUDA                             00000095
+WPUDA0                            00000000
+WPUDA1                            00000001
+WPUDA2                            00000002
+WPUDA4                            00000004
+WPUDA5                            00000005
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_BOD_NSLEEP                       00003EFF
+_BOD_OFF                          00003CFF
+_BOD_ON                           00003FFF
+_BOD_SBODEN                       00003DFF
+_BOREN_NSLEEP                     00003EFF
+_BOREN_OFF                        00003CFF
+_BOREN_ON                         00003FFF
+_BOREN_SBODEN                     00003DFF
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003F7F
+_CP_OFF                           00003FFF
+_CP_ON                            00003FBF
+_DEVID1                           00002006
+_EC_OSC                           00003FFB
+_EXTRC_OSC_CLKOUT                 00003FFF
+_EXTRC_OSC_NOCLKOUT               00003FFE
+_FCMEN_OFF                        000037FF
+_FCMEN_ON                         00003FFF
+MPASM  5.51                          P220.ASM   3-15-2020  11:14:39         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_FOSC_EC                          00003FFB
+_FOSC_EXTRCCLK                    00003FFF
+_FOSC_EXTRCIO                     00003FFE
+_FOSC_HS                          00003FFA
+_FOSC_INTOSCCLK                   00003FFD
+_FOSC_INTOSCIO                    00003FFC
+_FOSC_LP                          00003FF8
+_FOSC_XT                          00003FF9
+_HS_OSC                           00003FFA
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_IESO_OFF                         00003BFF
+_IESO_ON                          00003FFF
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FF8
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FEF
+_WDTE_OFF                         00003FF7
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FF7
+_WDT_ON                           00003FFF
+_WUREN_OFF                        00003FFF
+_WUREN_ON                         00002FFF
+_WURE_OFF                         00003FFF
+_WURE_ON                          00002FFF
+_XT_OSC                           00003FF9
+__12F635                          00000001
+buf                               00000048
+i000                              00000010
+l000                              0000002E
+l001                              00000037
+l002                              00000024
+l003                              0000002D
+l004                              00000020
+ms1                               00000045
+nbit                              00000042
+nbyte                             00000043
+one                               00000085
+start                             00000015
+stmp                              00000041
+szstart                           00000039
+txbyte                            00000046
+us2                               00000044
+wtmp                              00000040
+zero                              00000084
+MPASM  5.51                          P220.ASM   3-15-2020  11:14:39         PAGE 10
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXX------ ---------------- ---------------- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   135
+Program Memory Words Free:   889
+
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     3 suppressed
+
+

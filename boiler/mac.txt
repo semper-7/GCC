@@ -1,0 +1,5 @@
+SAGEM	4c:17:eb:38:e3:1b
+TP-LINK	f4:ec:38:aa:9d:67
+Intercross 00-1e-e3-c5-99-24
+MAC gateway: 00-19-D1-67-7F-51
+

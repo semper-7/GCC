@@ -1,0 +1,105 @@
+
+AVRA   Ver. 1.2.3 r220.asm Sat Feb 08 13:48:23 2020
+
+
+          .list
+         
+         ; F_CPU = 1.2MHz, Fuse: default Value 0xff6a
+          .equ	ADDR = 0x34	; Address of receiver
+         
+          .DSEG
+         
+          .CSEG
+         
+          .org 0
+C:000000 c011      	rjmp	init
+C:000001 9518      	reti
+C:000002 9518      	reti
+C:000003 9518      	reti
+C:000004 9518      	reti
+C:000005 c004      	rjmp	comp
+C:000006 9518      	reti
+C:000007 9518      	reti
+C:000008 9518      	reti
+C:000009 9518      	reti
+         
+C:00000a b60f      comp:	in	r0,SREG
+C:00000b ba18            	out	PORTB,r1
+C:00000c d020      	rcall	l220
+C:00000d e18b      	ldi	r24,0x1b
+C:00000e b988      	out	ACSR,r24
+C:00000f 2799      	clr	r25
+C:000010 be0f      	out	SREG,r0
+C:000011 9518      	reti
+         
+C:000012 2411      init:	clr	r1
+C:000013 be1f      	out	SREG,r1
+C:000014 e90f      	ldi	r16,RAMEND
+C:000015 bf0d      	out	SPL,r16
+C:000016 e10c      	ldi	r16,0x1c
+C:000017 bb07      	out	DDRB,r16
+C:000018 e10b      	ldi	r16,0x1b
+C:000019 b908      	out	ACSR,r16
+C:00001a 2711      	clr	r17
+         
+C:00001b 94f8      l000:	cli
+C:00001c bb18      	out	PORTB,r17
+C:00001d e008      	ldi	r16,8
+C:00001e 9478      	sei
+C:00001f 950a      l001:	dec	r16			;imp 20us (8*3/1.2MHz)
+C:000020 f7f1      	brne	l001
+C:000021 94f8      	cli
+C:000022 ba18            	out	PORTB,r1
+C:000023 9478      	sei
+C:000024 e800      	ldi	r16,128
+C:000025 950a      l002:	dec	r16			;pause 320us (256*3/1.2MHz)
+C:000026 f7f1      	brne	l002
+C:000027 9593      	inc	r25
+C:000028 3393      	cpi	r25,17500/(320+20)	; no int >17,5ms
+C:000029 f388      	brcs	l000
+C:00002a 2799      	clr	r25
+C:00002b 2733      	clr	r19
+C:00002c cfee      	rjmp	l000
+         
+C:00002d 2722      l220:	clr	r18
+C:00002e 2788      l221:	clr     r24
+C:00002f 9583      l222:	inc	r24
+C:000030 308c      	cpi	r24,12			;imp < 70us (12*7/1.2MHz)
+C:000031 f4e0      	brcc	l229
+C:000032 9945      	sbic	ACSR,ACO
+C:000033 cffb      	rjmp	l222
+C:000034 9523      	inc	r18
+C:000035 2788      	clr     r24
+C:000036 9583      l224:	inc	r24
+C:000037 308c      	cpi	r24,12			;pause < 70us (12*7/1.2MHz)
+C:000038 f418      	brcc	l225
+C:000039 9b45      	sbis	ACSR,ACO
+C:00003a cffb      	rjmp	l224
+C:00003b cff2      	rjmp	l221
+C:00003c 3027      l225:	cpi	r18,7
+C:00003d f011      	breq	l226
+C:00003e 3029      	cpi	r18,9
+C:00003f f471      	brne	l229
+C:000040 3028      l226:	cpi	r18,8
+C:000041 9577       	ror	r23
+C:000042 9533      	inc	r19
+C:000043 3038      	cpi	r19,8
+C:000044 f449      	brne	l229
+C:000045 2f67      	mov	r22,r23
+C:000046 7f6c      	andi	r22,0xfc
+C:000047 3364      	cpi	r22,ADDR
+C:000048 f429      	brne	l229
+C:000049 9572      	swap	r23
+C:00004a 9576      	lsr	r23
+C:00004b 7178      	andi	r23,0x18
+C:00004c 2f17      	mov	r17,r23
+C:00004d 2733      	clr	r19
+C:00004e 9508      l229:	ret
+
+
+Segment usage:
+   Code      :        79 words (158 bytes)
+   Data      :         0 bytes
+   EEPROM    :         0 bytes
+
+Assembly completed with no errors.

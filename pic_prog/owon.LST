@@ -1,0 +1,506 @@
+MPASM  5.51                          OWON.ASM   11-4-2019  17:42:13         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001         list      p=12F635
+                      00002         #include <p12f635.inc>
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC12F635 processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2013 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+                      00449         LIST
+                      00003         errorlevel      -302
+2007   30D4           00004         __CONFIG        30d4h
+                      00005 
+                      00006 mov     macro   reg,var 
+                      00007         movlw   var
+                      00008         movwf   reg
+                      00009         endm
+                      00010 
+                      00011 delay   macro   cnt
+                      00012         local   ldl0
+                      00013         mov     count,cnt
+                      00014 ldl0    decfsz  count,f
+                      00015         goto    ldl0
+                      00016         endm
+                      00017 
+                      00018 
+                      00019 ;****** Регистры ***************************************************************
+  00000040            00020 count   equ     0x40    ; счетчик задержки
+  00000041            00021 nbit    equ     0x41    ; счетчик бит
+  00000042            00022 nbyte   equ     0x42    ; счетчик байт
+  00000043            00023 xbyte   equ     0x43    ; байт приемника
+  00000044            00024 ibyte   equ     0x44    ; index
+                      00025 
+                      00026 ;*******************************************************************************
+0000                  00027         org     0
+0000   280E           00028         goto    init            ; к началу
+                      00029 ;****** Обработчик прерываний **************************************************
+0004                  00030         org     4
+0004   0009           00031         retfie
+                      00032 ;*******************************************************************************
+0005   0782           00033 rom     addwf   PCL,f
+0006   3469           00034         retlw   69h
+0007   345A           00035         retlw   5ah
+0008   344B           00036         retlw   4bh
+0009   343C           00037         retlw   3ch
+000A   342D           00038         retlw   2dh
+000B   341E           00039         retlw   1eh
+000C   340F           00040         retlw   0fh
+000D   3433           00041         retlw   33h
+                      00042 
+                      00043 init    mov     CMCON0,7
+000E   3007               M         movlw   7
+MPASM  5.51                          OWON.ASM   11-4-2019  17:42:13         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+000F   0099               M         movwf   CMCON0
+                      00044         mov     PORTA,3
+0010   3003               M         movlw   3
+0011   0085               M         movwf   PORTA
+0012   1683           00045         bsf     STATUS,RP0      ; 1 Bank
+0013   128F           00046         bcf     OSCCON,IRCF1    ; 1 MHz
+                      00047         mov     TRISA,3ch
+0014   303C               M         movlw   3ch
+0015   0085               M         movwf   TRISA
+0016   1283           00048         bcf     STATUS,RP0      ; 0 Bank
+                      00049 
+0017   2035           00050 loop    call    WaitReset
+0018   203D           00051         call    SendPresence
+0019   2817           00052         goto    loop
+001A   2051           00053         call    ReadByte
+001B   3055           00054         movlw   55h
+001C   0243           00055         subwf   xbyte,w
+001D   1D03           00056         btfss   STATUS,Z
+001E   2817           00057         goto    loop
+001F   205F           00058         call    ReadROM
+0020   1D03           00059         btfss   STATUS,Z
+0021   2817           00060         goto    loop
+0022   2051           00061         call    ReadByte
+0023   306C           00062         movlw   6ch
+0024   0243           00063         subwf   xbyte,w
+0025   1C03           00064         btfss   STATUS,C
+0026   2817           00065         goto    loop
+0027   306F           00066         movlw   6fh
+0028   0243           00067         subwf   xbyte,w
+0029   1803           00068         btfsc   STATUS,C
+002A   2817           00069         goto    loop
+002B   0843           00070         movf    xbyte,w
+002C   3903           00071         andlw   3
+002D   0085           00072         movwf   PORTA
+002E   2817           00073         goto    loop
+                      00074 
+002F                  00075 WaitRising
+002F   1D05           00076 wrs0    btfss   PORTA,2
+0030   282F           00077         goto    wrs0
+0031   1905           00078 wrs1    btfsc   PORTA,2
+0032   2831           00079         goto    wrs1
+0033   0185           00080         clrf    PORTA
+0034   0008           00081         return
+                      00082 
+0035                  00083 WaitReset
+0035   202F           00084         call    WaitRising
+0036   01C0           00085         clrf    count
+0037   0AC0           00086 wr00    incf    count,f
+0038   1D05           00087         btfss   PORTA,2
+0039   2837           00088         goto    wr00
+003A   306E           00089         movlw   .440/4
+003B   0240           00090         subwf   count,w
+                      00091 ;       btfss   STATUS,C
+MPASM  5.51                          OWON.ASM   11-4-2019  17:42:13         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00092 ;       goto    WaitReset
+003C   0008           00093         return
+                      00094 
+003D                  00095 SendPresence
+                      00096         delay   .12/3
+  0000                    M         local   ldl0
+                          M         mov     count,.12/3
+003D   3004               M         movlw   .12/3
+003E   00C0               M         movwf   count
+003F   0BC0               M ldl0    decfsz  count,f
+0040   283F               M         goto    ldl0
+0041   1683           00097         bsf     STATUS,RP0      ; 1 Bank
+0042   1105           00098         bcf     TRISA,2
+0043   1283           00099         bcf     STATUS,RP0      ; 0 Bank
+0044   0185           00100         clrf    PORTA
+                      00101         delay   .250
+  0000                    M         local   ldl0
+                          M         mov     count,.250
+0045   30FA               M         movlw   .250
+0046   00C0               M         movwf   count
+0047   0BC0               M ldl0    decfsz  count,f
+0048   2847               M         goto    ldl0
+0049   1683           00102         bsf     STATUS,RP0      ; 1 Bank
+004A   1505           00103         bsf     TRISA,2
+004B   1283           00104         bcf     STATUS,RP0      ; 0 Bank
+                      00105         delay   .60/3
+  0000                    M         local   ldl0
+                          M         mov     count,.60/3
+004C   3014               M         movlw   .60/3
+004D   00C0               M         movwf   count
+004E   0BC0               M ldl0    decfsz  count,f
+004F   284E               M         goto    ldl0
+0050   0008           00106         return
+                      00107 
+0051                  00108 ReadByte
+                      00109         mov     nbit,8
+0051   3008               M         movlw   8
+0052   00C1               M         movwf   nbit
+0053   202F           00110 rb00    call    WaitRising
+                      00111         delay   24/3
+  0000                    M         local   ldl0
+                          M         mov     count,24/3
+0054   300C               M         movlw   24/3
+0055   00C0               M         movwf   count
+0056   0BC0               M ldl0    decfsz  count,f
+0057   2856               M         goto    ldl0
+0058   1003           00112         bcf     STATUS,C        ; сбрасываем флаг С
+0059   0CC3           00113         rrf     xbyte,f         ; сдвигаем регистр вправо
+005A   1905           00114         btfsc   PORTA,2         ; если вход=1, то пишем 1, если нет - пропускаем
+005B   17C3           00115         bsf     xbyte,7         ; ставим бит=1
+005C   0BC1           00116         decfsz  nbit,f
+005D   2853           00117         goto    rb00
+005E   0008           00118         return
+MPASM  5.51                          OWON.ASM   11-4-2019  17:42:13         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00119 
+005F                  00120 ReadROM
+005F   01C4           00121         clrf    ibyte
+                      00122         mov     nbyte,8
+0060   3008               M         movlw   8
+0061   00C2               M         movwf   nbyte
+0062   2051           00123 rr00    call    ReadByte
+0063   0844           00124         movf    ibyte,w
+0064   2005           00125         call    rom     
+0065   0243           00126         subwf   xbyte,w
+0066   1D03           00127         btfss   STATUS,Z
+0067   0008           00128         return
+0068   0AC4           00129         incf    ibyte,f
+0069   0BC2           00130         decfsz  nbyte,f
+006A   2862           00131         goto    rr00
+006B   0008           00132         return
+                      00133 
+                      00134 
+                      00135         end
+MPASM  5.51                          OWON.ASM   11-4-2019  17:42:13         PAGE  5
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+C                                 00000000
+C1IE                              00000003
+C1IF                              00000003
+C1INV                             00000004
+C1OUT                             00000006
+C1SYNC                            00000000
+CINV                              00000004
+CIS                               00000003
+CM0                               00000000
+CM1                               00000001
+CM2                               00000002
+CMCON0                            00000019
+CMCON1                            0000001A
+CMSYNC                            00000000
+COUT                              00000006
+CRCON                             00000110
+CRDAT0                            00000111
+CRDAT1                            00000112
+CRDAT2                            00000113
+CRDAT3                            00000114
+CRIE                              00000005
+CRIF                              00000005
+CRREG0                            00000000
+CRREG1                            00000001
+DC                                00000001
+EEADR                             0000009B
+EECON1                            0000009C
+EECON2                            0000009D
+EEDAT                             0000009A
+EEDATA                            0000009A
+EEIE                              00000007
+EEIF                              00000007
+ENC_DEC                           00000006
+ENC_NOT_DEC                       00000006
+F                                 00000001
+FSR                               00000004
+GIE                               00000007
+GO                                00000007
+GO_NOT_DONE                       00000007
+GP0                               00000000
+GP1                               00000001
+GP2                               00000002
+GP3                               00000003
+GP4                               00000004
+GP5                               00000005
+GPIO                              00000005
+HTS                               00000002
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IOCA                              00000096
+MPASM  5.51                          OWON.ASM   11-4-2019  17:42:13         PAGE  6
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+IOCA0                             00000000
+IOCA1                             00000001
+IOCA2                             00000002
+IOCA3                             00000003
+IOCA4                             00000004
+IOCA5                             00000005
+IRCF0                             00000004
+IRCF1                             00000005
+IRCF2                             00000006
+IRP                               00000007
+IRVST                             00000005
+LTS                               00000001
+LVDCON                            00000094
+LVDEN                             00000004
+LVDIE                             00000006
+LVDIF                             00000006
+LVDL0                             00000000
+LVDL1                             00000001
+LVDL2                             00000002
+NOT_BOD                           00000000
+NOT_BOR                           00000000
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RAPU                          00000007
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_WUR                           00000003
+OPTION_REG                        00000081
+OSCCON                            0000008F
+OSCTUNE                           00000090
+OSFIE                             00000002
+OSFIF                             00000002
+OSTS                              00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PIE1                              0000008C
+PIR1                              0000000C
+PLVDEN                            00000004
+PORTA                             00000005
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RAIE                              00000003
+RAIF                              00000000
+MPASM  5.51                          OWON.ASM   11-4-2019  17:42:13         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RD                                00000000
+RP0                               00000005
+RP1                               00000006
+ReadByte                          00000051
+ReadROM                           0000005F
+SBODEN                            00000004
+SBOREN                            00000004
+SCS                               00000000
+STATUS                            00000003
+SWDTEN                            00000000
+SendPresence                      0000003D
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1GINV                            00000007
+T1GSS                             00000001
+T1OSCEN                           00000003
+TMR0                              00000001
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1GE                            00000006
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISIO                            00000085
+TRISIO0                           00000000
+TRISIO1                           00000001
+TRISIO2                           00000002
+TRISIO3                           00000003
+TRISIO4                           00000004
+TRISIO5                           00000005
+TUN0                              00000000
+TUN1                              00000001
+TUN2                              00000002
+TUN3                              00000003
+TUN4                              00000004
+ULPWUE                            00000005
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+MPASM  5.51                          OWON.ASM   11-4-2019  17:42:13         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+VR3                               00000003
+VRCON                             00000099
+VREN                              00000007
+VRR                               00000005
+W                                 00000000
+WDA                               00000097
+WDA0                              00000000
+WDA1                              00000001
+WDA2                              00000002
+WDA4                              00000004
+WDA5                              00000005
+WDTCON                            00000018
+WDTPS0                            00000001
+WDTPS1                            00000002
+WDTPS2                            00000003
+WDTPS3                            00000004
+WPUDA                             00000095
+WPUDA0                            00000000
+WPUDA1                            00000001
+WPUDA2                            00000002
+WPUDA4                            00000004
+WPUDA5                            00000005
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+WaitReset                         00000035
+WaitRising                        0000002F
+Z                                 00000002
+_BOD_NSLEEP                       00003EFF
+_BOD_OFF                          00003CFF
+_BOD_ON                           00003FFF
+_BOD_SBODEN                       00003DFF
+_BOREN_NSLEEP                     00003EFF
+_BOREN_OFF                        00003CFF
+_BOREN_ON                         00003FFF
+_BOREN_SBODEN                     00003DFF
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003F7F
+_CP_OFF                           00003FFF
+_CP_ON                            00003FBF
+_DEVID1                           00002006
+_EC_OSC                           00003FFB
+_EXTRC_OSC_CLKOUT                 00003FFF
+_EXTRC_OSC_NOCLKOUT               00003FFE
+_FCMEN_OFF                        000037FF
+_FCMEN_ON                         00003FFF
+_FOSC_EC                          00003FFB
+_FOSC_EXTRCCLK                    00003FFF
+_FOSC_EXTRCIO                     00003FFE
+_FOSC_HS                          00003FFA
+_FOSC_INTOSCCLK                   00003FFD
+_FOSC_INTOSCIO                    00003FFC
+MPASM  5.51                          OWON.ASM   11-4-2019  17:42:13         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_FOSC_LP                          00003FF8
+_FOSC_XT                          00003FF9
+_HS_OSC                           00003FFA
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_IESO_OFF                         00003BFF
+_IESO_ON                          00003FFF
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FF8
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FEF
+_WDTE_OFF                         00003FF7
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FF7
+_WDT_ON                           00003FFF
+_WUREN_OFF                        00003FFF
+_WUREN_ON                         00002FFF
+_WURE_OFF                         00003FFF
+_WURE_ON                          00002FFF
+_XT_OSC                           00003FF9
+__12F635                          00000001
+count                             00000040
+delay                             
+ibyte                             00000044
+init                              0000000E
+loop                              00000017
+mov                               
+nbit                              00000041
+nbyte                             00000042
+rb00                              00000053
+rom                               00000005
+rr00                              00000062
+wr00                              00000037
+wrs0                              0000002F
+wrs1                              00000031
+xbyte                             00000043
+MPASM  5.51                          OWON.ASM   11-4-2019  17:42:13         PAGE 10
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXX---- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   105
+Program Memory Words Free:   919
+
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     4 suppressed
+
+

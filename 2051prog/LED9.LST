@@ -1,0 +1,201 @@
+LED9                                                                                                          PAGE 1
+
+                       1    ;Модуль индикации 9-х разрядном семисегментном индикаторе
+                       2    ;на AT89C2051 и SN74ALS574B.
+                       3    ;Управление по одному проводу UART 115200,
+                       4    ;формат пакета 12 байт: ^~~123456789
+                       5    ;PIN    PINNAME FUNK    PIN574
+                       6    ;1      RESET   RESET   
+                       7    ;2      P3.0    RX 115200
+                       8    ;3      P3.1    NC
+                       9    ;4      XL1     Quarz 22,1184MHz+22pF+GND
+                      10    ;5      XL2     Quarz 22,1184MHz+22pF+GND
+                      11    ;6      P3.2    KEY
+                      12    ;7      P3.3    NC
+                      13    ;8      P3.4    0E      1 
+                      14    ;9      P3.5    CLK     11
+                      15    ;10     GND     GND     10
+                      16    ;11     P3.7    9       
+                      17    ;12     P1.0    8,f     9
+                      18    ;13     P1.1    7,b     8
+                      19    ;14     P1.2    6,g     7
+                      20    ;15     P1.3    5,d     6
+                      21    ;16     P1.4    4,e     5
+                      22    ;17     P1.5    3,a     4
+                      23    ;18     P1.6    2,h     3
+                      24    ;19     P1.7    1,c     2
+                      25    ;20     VDD     VDD     20
+                      26    
+                      27    $MOD2051
+  F9BF                28    kt0     equ     65535 - 1600
+                      29    
+----                  30    CSEG    
+0000                  31    ORG 0
+0000 01FC             32            ajmp    init
+0003                  33    ORG 3
+0003 32               34            reti
+000B                  35    ORG 0bh
+000B 01B7             36            ajmp    ind
+0013                  37    ORG 13h
+0013 32               38            reti
+001B                  39    ORG 1Bh
+001B 32               40            reti
+0023                  41    ORG 23h
+0023 C0E0             42            push    ACC
+0025 C0D0             43            push    PSW
+0027 309835           44            jnb     098h,rx3        ;SCON bit 0
+002A 75D008           45            mov     PSW,#8
+002D E599             46            mov     A,SBUF
+002F B45E02           47            cjne    A,#'^',rx1
+0032 790D             48            mov     R1,#0dh
+0034 F7               49    rx1:    mov     @R1,A
+0035 09               50            inc     R1
+0036 B91926           51            cjne    R1,#19h,rx3
+0039 BD5E21           52            cjne    R5,#'^',rx2
+003C BE7E1E           53            cjne    R6,#'~',rx2
+003F BF7E1B           54            cjne    R7,#'~',rx2
+0042 851040           55            mov     40h,10h
+0045 851141           56            mov     41h,11h
+0048 851242           57            mov     42h,12h
+004B 851343           58            mov     43h,13h
+LED9                                                                                                          PAGE 2
+
+004E 851444           59            mov     44h,14h
+0051 851545           60            mov     45h,15h
+0054 851646           61            mov     46h,16h
+0057 851747           62            mov     47h,17h
+005A 851848           63            mov     48h,18h
+005D 790D             64    rx2:    mov     R1,#0dh
+005F 759850           65    rx3:    mov     SCON,#50h
+0062 D0D0             66            pop     PSW     
+0064 D0E0             67            pop     ACC
+0066 32               68            reti    
+                      69    
+                      70    ;76543210
+                      71    ;fbgdeahc
+                      72    ;Symbol table:  
+                      73    ; ,c,h,H,L,n,r,o,P,u,U,/u,Г,П,У, ;
+                      74    ;0.,1.,2.,3.,4.,5.,6.,7.,8.,9.,A.,b.,C.,d.,E.,F.;
+                      75    ; ,a,b,c,d,e,f,g,h,ad,ag,dg,adg,ef,bcef,abfg(segments);
+                      76    ;0,1,2,3,4,5,6,7,8,9,A,b,C,d,E,F;
+                      77    ;+40h --> flash "symbol"
+                      78    ;+C0h --> flash "."
+0067 FF38A9E9         79    tab:    DB      0ffh,038h,0a9h,0e9h,098h,029h,039h,028h,0ech,019h,0d9h,0e8h,08ch,0cdh,051h,0
+                                                                               ffh
+006B 98293928   
+006F EC19D9E8   
+0073 8CCD51FF   
+0077 DF437E77         80            DB      0dfh,043h,07eh,077h,0e3h,0b7h,0bfh,047h,0ffh,0f7h,0efh,0bbh,09eh,07bh,0beh,0
+                                                                               aeh
+007B E3B7BF47   
+007F FFF7EFBB   
+0083 9E7BBEAE   
+0087 00044001         81            DB      000h,004h,040h,001h,010h,008h,080h,020h,002h,014h,024h,030h,034h,088h,0c9h,0
+                                                                               e4h
+008B 10088020   
+008F 02142430   
+0093 3488C9E4   
+0097 DD417C75         82            DB      0ddh,041h,07ch,075h,0e1h,0b5h,0bdh,045h,0fdh,0f5h,0edh,0b9h,09ch,079h,0bch,0
+                                                                               ach
+009B E1B5BD45   
+009F FDF5EDB9   
+00A3 9C79BCAC   
+00A7 FFFEFDFB         83            DB      0ffh,0feh,0fdh,0fbh,0f7h,0efh,0dfh,0bfh,07fh,0ffh,0ffh,0ffh,0ffh,0ffh,0ffh,0
+                                                                               ffh
+00AB F7EFDFBF   
+00AF 7FFFFFFF   
+00B3 FFFFFFFF   
+                      84    
+00B7 C0E0             85    ind:    push    ACC
+00B9 C0D0             86            push    PSW
+00BB 75D008           87            mov     PSW,#8
+00BE 758CF9           88            mov     TH0,#(high kt0)
+00C1 758ABF           89            mov     TL0,#(low kt0)
+00C4 900067           90            mov     DPTR,#tab
+00C7 E6               91            mov     A,@R0
+00C8 7A3F             92            mov     R2,#3fh
+00CA 30E60B           93            jnb     0e6h,ind1       ;ACC bit 6
+00CD 300608           94            jnb     6,ind1          ;20h bit 6 if flash 1Hz
+00D0 7A1F             95            mov     R2,#1fh
+00D2 20E703           96            jb      0e7h,ind1       ;ACC bit 7
+LED9                                                                                                          PAGE 3
+
+00D5 E4               97            clr     A
+00D6 01DA             98            ajmp    ind2    
+00D8 5A               99    ind1:   anl     A,R2
+00D9 93              100            movc    A,@A+DPTR
+00DA D2B4            101    ind2:   setb    P3.4
+00DC F590            102            mov     P1,A
+00DE E8              103            mov     A,R0
+00DF 93              104            movc    A,@A+DPTR
+00E0 D2B5            105            setb    P3.5
+00E2 D2B7            106            setb    P3.7
+00E4 C2B5            107            clr     P3.5
+00E6 F590            108            mov     P1,A
+00E8 B4FF02          109            cjne    A,#0ffh,ind4
+00EB C2B7            110            clr     P3.7
+00ED C2B4            111    ind4:   clr     P3.4
+00EF 08              112            inc     R0
+00F0 B84904          113            cjne    R0,#49h,ind5
+00F3 7840            114            mov     R0,#40h
+00F5 0520            115            inc     20h
+00F7 D0D0            116    ind5:   pop     PSW     
+00F9 D0E0            117            pop     ACC
+00FB 32              118            reti    
+                     119    
+00FC E4              120    init:   clr     A
+00FD 75D008          121            mov     PSW,#8
+0100 7840            122            mov     R0,#40h
+0102 790D            123            mov     R1,#0dh
+0104 F5D0            124            mov     PSW,A
+0106 75815F          125            mov     SP,#5fh
+0109 7840            126            mov     R0,#40h
+010B 7467            127            mov     A,#67h
+010D F6              128    l000:   mov     @R0,A
+010E 08              129            inc     R0
+010F B849FB          130            cjne    R0,#49h,l000
+0112 758921          131            mov     TMOD,#21h
+0115 758DFF          132            mov     TH1,#0ffh
+0118 758CF9          133            mov     TH0,#(high kt0)
+011B 758ABF          134            mov     TL0,#(low kt0)
+011E 75B802          135            mov     IP,#02h
+0121 75A892          136            mov     IE,#92h
+0124 758850          137            mov     TCON,#50h
+0127 759850          138            mov     SCON,#50h
+012A 758780          139            mov     PCON,#80h
+                     140    
+012D 212D            141    l001:   ajmp    l001
+                     142            
+                     143    END
+
+VERSION 1.2h ASSEMBLY COMPLETE, 0 ERRORS FOUND
+LED9                                                                                                          PAGE 4
+
+ACC. . . . . . . . . . . . . . .  D ADDR  00E0H  PREDEFINED  
+IE . . . . . . . . . . . . . . .  D ADDR  00A8H  PREDEFINED  
+IND. . . . . . . . . . . . . . .  C ADDR  00B7H  
+IND1 . . . . . . . . . . . . . .  C ADDR  00D8H  
+IND2 . . . . . . . . . . . . . .  C ADDR  00DAH  
+IND4 . . . . . . . . . . . . . .  C ADDR  00EDH  
+IND5 . . . . . . . . . . . . . .  C ADDR  00F7H  
+INIT . . . . . . . . . . . . . .  C ADDR  00FCH  
+IP . . . . . . . . . . . . . . .  D ADDR  00B8H  PREDEFINED  
+KT0. . . . . . . . . . . . . . .    NUMB  F9BFH  
+L000 . . . . . . . . . . . . . .  C ADDR  010DH  
+L001 . . . . . . . . . . . . . .  C ADDR  012DH  
+P1 . . . . . . . . . . . . . . .  D ADDR  0090H  PREDEFINED  
+P3 . . . . . . . . . . . . . . .  D ADDR  00B0H  PREDEFINED  
+PCON . . . . . . . . . . . . . .  D ADDR  0087H  PREDEFINED  
+PSW. . . . . . . . . . . . . . .  D ADDR  00D0H  PREDEFINED  
+RX1. . . . . . . . . . . . . . .  C ADDR  0034H  
+RX2. . . . . . . . . . . . . . .  C ADDR  005DH  
+RX3. . . . . . . . . . . . . . .  C ADDR  005FH  
+SBUF . . . . . . . . . . . . . .  D ADDR  0099H  PREDEFINED  
+SCON . . . . . . . . . . . . . .  D ADDR  0098H  PREDEFINED  
+SP . . . . . . . . . . . . . . .  D ADDR  0081H  PREDEFINED  
+TAB. . . . . . . . . . . . . . .  C ADDR  0067H  
+TCON . . . . . . . . . . . . . .  D ADDR  0088H  PREDEFINED  
+TH0. . . . . . . . . . . . . . .  D ADDR  008CH  PREDEFINED  
+TH1. . . . . . . . . . . . . . .  D ADDR  008DH  PREDEFINED  
+TL0. . . . . . . . . . . . . . .  D ADDR  008AH  PREDEFINED  
+TMOD . . . . . . . . . . . . . .  D ADDR  0089H  PREDEFINED  

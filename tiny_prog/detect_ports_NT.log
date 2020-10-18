@@ -1,0 +1,432 @@
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
+Enter DetectPortsNT(Parport, LPT%d, 004AD620, 4)
+Port count: 1)
+Cycle: 0, PNPPath: ACPI\PNP0400\4&a167c99&0
+p=0022F6A8 [0]=2, [1]=1114369, [2]=378h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 1
+Enter DetectPortsNT(Serial, COM%d, 004AD600, 4)
+Port count: 2)
+Cycle: 0, PNPPath: PCI\VEN_8086&DEV_2997&SUBSYS_4F438086&REV_02\3&2acf1e9&0&1B
+p=0022F6A8 [0]=5, [1]=19988737, [2]=2450h, [3]=0h, [4]=8
+Cycle: 1, PNPPath: ACPI\PNP0501\1
+p=0022F6A8 [0]=2, [1]=1114369, [2]=3f8h, [3]=0h, [4]=8
+Enter DetectPortsNT() *** Count = 2
