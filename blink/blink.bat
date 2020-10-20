@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 echo Compile %~n0.cpp ...
-set P=D:\AVR-GCC\bin\
+set P=E:\AVR-GCC\bin\
 set CP=%P%avr-g++
 set AR=%P%avr-ar
 set OP=-Wall -mmcu=atmega328p -Os -DF_CPU=16000000
@@ -23,5 +23,5 @@ echo Linking ...
 if %errorlevel% NEQ 0 pause&exit
 %P%avr-objdump -h -S %~n0.elf > %~n0.lst
 %P%avr-objcopy -O ihex %~n0.elf %~n0.hex
-del *.o *.elf >nul
+rem del *.o *.elf >nul
 pause
